@@ -11,9 +11,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Always return the main index.html, so react-router render the route in the client
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-});
+// app.get('/app*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+// });
 
 // https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example
 const pgp = require('pg-promise')();

@@ -1,5 +1,4 @@
 import React from 'react';
-// import Client from './Client';
 
 const Directions = React.createClass({
   getInitialState: function () {

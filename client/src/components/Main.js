@@ -1,9 +1,20 @@
 import React from 'react';
+import Client from '../Client';
 
 const Main = React.createClass({
   getInitialState: function () {
     return {
+      test: ['stufsdf'],
     };
+  },
+  testClick() {
+    console.log('test');
+    Client.ping((cb) => {
+      console.log(cb);
+      this.setState({
+        test: cb,
+      });
+    });
   },
   render: function () {
     return (
@@ -14,8 +25,9 @@ const Main = React.createClass({
             <h1 className="ui inverted header">
               Educational Research
             </h1>
+          
             <h2>Thank you for participating in this research study.</h2>
-            <div className="ui huge primary button">Get Started <i className="right arrow icon"></i></div>
+            <div onClick={this.testClick} className="ui huge primary button">Get Started <i className="right arrow icon"></i></div>
           </div>
 
         </div>
