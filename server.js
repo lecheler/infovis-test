@@ -17,6 +17,14 @@ app.get('*', (req, res) => {
 
 // https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example
 const pgp = require('pg-promise')();
+const cn = {
+    host: 'ec2-54-75-249-160.eu-west-1.compute.amazonaws.com',
+    port: 5432,
+    database: 'dfv0hupgl4gc6g',
+    user: 'leprvdvijpkrag',
+    password: 'ooHgAUFWhLKQk6jY4j4SkNFlYG',
+    ssl: true
+};
 const db_pg = pgp(cn);
 
 app.get('/api/ping', (req, res) => {

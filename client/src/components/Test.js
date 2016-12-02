@@ -1,4 +1,5 @@
 import React from 'react';
+import '../semantic-ui/semantic.min.css';
 
 const Test = React.createClass({
   getInitialState: function () {
