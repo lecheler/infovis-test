@@ -16,7 +16,7 @@ app.get('*', (req, res) => {
 });
 
 // https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example
-
+const pgp = require('pg-promise')();
 const db_pg = pgp(cn);
 
 app.get('/api/ping', (req, res) => {
