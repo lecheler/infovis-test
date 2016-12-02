@@ -4,15 +4,16 @@ import {
   Route,
   browserHistory,
 } from 'react-router';
+
+import Main from './components/Main'
 import Directions from './components/Directions';
-import Start from './components/Start';
 import Test from './components/Test';
 
 const App = React.createClass({
   render: function() {
     return (
       <Router history={browserHistory} >
-        <Route path="/" component={Start} />
+        <Route path="/" component={Main} />
         <Route path="/directions" component={Directions} />
         <Route path="/test" component={Test} />
       </Router>
