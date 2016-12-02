@@ -1,5 +1,5 @@
 import React from 'react';
-import '../semantic-ui/semantic.min.css';
+import Table from './tests/Table';
 
 const Test = React.createClass({
   getInitialState: function () {
@@ -11,6 +11,7 @@ const Test = React.createClass({
       <div className='ui text container'>
         <h1>Test</h1>
         Question 1.
+        <Table />
       </div>
     );
   },
