@@ -1,6 +1,4 @@
 import React from 'react';
-import {Rating} from 'react-semantify'; 
-// import Client from './Client';
 
 const Test = React.createClass({
   getInitialState: function () {

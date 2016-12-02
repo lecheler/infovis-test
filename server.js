@@ -1,11 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const sqlite = require('sql.js');
-
-const filebuffer = fs.readFileSync('db/usda-nnd.sqlite3');
-
-const db = new sqlite.Database(filebuffer);
-
+const path = require('path');
 const app = express();
 
 app.set('port', (process.env.PORT || 3001));
@@ -15,71 +10,14 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-const COLUMNS = [
-  'carbohydrate_g',
-  'protein_g',
-  'fa_sat_g',
-  'fa_mono_g',
-  'fa_poly_g',
-  'kcal',
-  'description',
-];
-app.get('/api/food', (req, res) => {
-  const param = req.query.q;
-
-  if (!param) {
-    res.json({
-      error: 'Missing required parameter `q`',
-    });
-    return;
-  }
-
-  // WARNING: Not for production use! The following statement
-  // is not protected against SQL injections.
-  const r = db.exec(`
-    select ${COLUMNS.join(', ')} from entries
-    where description like '%${param}%'
-    limit 100
-  `);
-
-  if (r[0]) {
-    res.json(
-      r[0].values.map((entry) => {
-        const e = {};
-        COLUMNS.forEach((c, idx) => {
-          // combine fat columns
-          if (c.match(/^fa_/)) {
-            e.fat_g = e.fat_g || 0.0;
-            e.fat_g = (
-              parseFloat(e.fat_g, 10) + parseFloat(entry[idx], 10)
-            ).toFixed(2);
-          } else {
-            e[c] = entry[idx];
-          }
-        });
-        return e;
-      })
-    );
-  } else {
-    res.json([]);
-  }
+// Always return the main index.html, so react-router render the route in the client
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
-
-const pgp = require('pg-promise')();
-const cn = {
-    host: 'ec2-54-75-249-160.eu-west-1.compute.amazonaws.com',
-    port: 5432,
-    database: 'dfv0hupgl4gc6g',
-    user: 'leprvdvijpkrag',
-    password: 'ooHgAUFWhLKQk6jY4j4SkNFlYG',
-    ssl: true
-};
+// https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example
 
 const db_pg = pgp(cn);
-
-
-// https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example
 
 app.get('/api/ping', (req, res) => {
   const param = req.query.q;
