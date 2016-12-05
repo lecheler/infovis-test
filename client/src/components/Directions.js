@@ -1,11 +1,14 @@
 import React from 'react';
 
 const Directions = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
     };
   },
-  render: function () {
+  goToNextPage() {
+    this.props.updatePage(3);
+  },
+  render() {
     return (
       <div className='ui text container'>
         <h1>Directions</h1>
@@ -50,6 +53,7 @@ const Directions = React.createClass({
           </div>
         </div>
         Suspendisse auctor semper elementum. In malesuada iaculis consequat. Cras ac justo at ipsum ornare lacinia. In vitae libero tincidunt urna aliquet mattis vel a ante. Quisque efficitur nulla nunc, sit amet semper nisi dictum egestas. Praesent blandit sodales augue id convallis. Donec lectus mi, varius sed faucibus eu, laoreet at ex. Etiam vulputate, mauris id iaculis blandit, nulla mauris sodales metus, et maximus erat sapien sit amet purus. Fusce congue gravida ultricies. Sed lacinia enim consectetur augue dictum consequat.
+        <div onClick={this.goToNextPage} className="ui huge primary button">Continue</div>
       </div>
     );
   },
