@@ -14,7 +14,6 @@ const Test = React.createClass({
     };
   },
   componentWillMount() {
-    console.log('componentWillMount');
     Client.getQuestions((cb) => {
       this.setState({
         questions: cb,

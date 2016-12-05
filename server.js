@@ -41,7 +41,6 @@ app.get('/api/ping', (req, res) => {
 });
 
 app.get('/api/questions', (req, res) => {
-  const param = req.query.q;
   db_pg.any("select * from questions", [true])
     .then(function (data) {
         // success;
@@ -52,6 +51,22 @@ app.get('/api/questions', (req, res) => {
         console.log(error);
     });
 });
+
+app.get('/api/answers', (req, res) => {
+  const userID = req.query.userID;
+  const questionID = req.query.questionID;
+  const answer = req.query.answer;
+  const responseTime = req.query.responseTime;
+  db_pg.none("insert into answers(userID, questionID, answer, created_at, response_time) values($1, $2, $3, now(), $4)", 
+      [userID, questionID, answer, responseTime])
+    .then(function () {
+        // success;
+    })
+    .catch(function (error) {
+        // error;
+    });
+});
+
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
