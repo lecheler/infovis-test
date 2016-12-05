@@ -2,14 +2,24 @@ import React from 'react';
 import Response from './Response';
 import Table from './tests/Table';
 import Chart from './tests/Chart';
+import Client from '../Client';
 
 const Test = React.createClass({
   getInitialState() {
     return {
+      questions: [],
       questionNumber: 1,
       questionType: 0,
       questionText: 'Donec at interdum nisi, eu lacinia dui. Donec lorem tortor, tincidunt lacinia porta et, convallis eget arcu. Nam sit amet interdum justo. Morbi id iaculis nibh. Proin efficitur odio sem, nec sollicitudin ipsum faucibus non?',
     };
+  },
+  componentWillMount() {
+    console.log('componentWillMount');
+    Client.getQuestions((cb) => {
+      this.setState({
+        questions: cb,
+      });
+    });
   },
   goToNextQuestion() {
     const value = this.state.questionNumber++;
@@ -19,9 +29,11 @@ const Test = React.createClass({
       promptText: 'Use the following information to answer the question below.',
       questionText: 'Of all the students, who is more likely to score the highest?',
     });
-    console.log(this.state);
   },
   render() {
+    if (this.state.questions.length === 0) {
+      return (<div />);
+    }
     let prompt = (
       <Table />
     );

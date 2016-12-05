@@ -40,6 +40,19 @@ app.get('/api/ping', (req, res) => {
     });
 });
 
+app.get('/api/questions', (req, res) => {
+  const param = req.query.q;
+  db_pg.any("select * from questions", [true])
+    .then(function (data) {
+        // success;
+        res.json(data);
+    })
+    .catch(function (error) {
+        // error;
+        console.log(error);
+    });
+});
+
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });

@@ -1,14 +1,15 @@
 /* eslint-disable no-undef */
-function search(query, cb) {
-  return fetch(`api/food?q=${query}`, {
+
+function ping(cb) {
+  return fetch(`api/ping`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)
     .then(cb);
 }
 
-function ping(cb) {
-  return fetch(`api/ping`, {
+function getQuestions(cb) {
+  return fetch(`api/questions`, {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON)
@@ -31,5 +32,5 @@ function parseJSON(response) {
   return response.json();
 }
 
-const Client = { search, ping };
+const Client = { ping, getQuestions };
 export default Client;
